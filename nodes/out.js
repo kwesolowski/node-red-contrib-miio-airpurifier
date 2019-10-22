@@ -57,9 +57,11 @@ module.exports = function (RED) {
                     var value = payload.RotationSpeed;
 
                     if (node.TargetAirPurifierState == "auto") {
-                        if (value == 0) {} else {
+                        if (value == 0) {
+                        } else {
                             node.device.call("set_level_favorite", [parseInt(value / 10)]).then(result => {
-                                if (result[0] === "ok") {} else {
+                                if (result[0] === "ok") {
+                                } else {
                                     console.log(new Error(result[0]));
                                 }
                             }).catch(function (err) {
@@ -73,7 +75,8 @@ module.exports = function (RED) {
 
                             } else {
                                 node.device.call("set_level_favorite", [parseInt(value / 10)]).then(result => {
-                                    if (result[0] === "ok") {} else {
+                                    if (result[0] === "ok") {
+                                    } else {
                                         console.log(new Error(result[0]));
                                     }
                                 }).catch(function (err) {

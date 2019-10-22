@@ -68,7 +68,8 @@ module.exports = function (RED) {
                     if (node.device !== null) {
                         node.device.loadProperties(["mode", "filter1_life", "aqi", "child_lock", "power", "favorite_level", "temp_dec", "humidity"])
                             .then(device => {
-                                node.send([{
+                                node.send([
+                                    {
                                         'payload_raw': device
                                     },
                                     {
@@ -76,12 +77,12 @@ module.exports = function (RED) {
                                     }
                                 ]);
                             }).catch(err => {
-                                console.log('Encountered an error while controlling device');
-                                console.log('Error(2) was:');
-                                console.log(err.message);
-                                node.connect();
-                                reject(err);
-                            });
+                            console.log('Encountered an error while controlling device');
+                            console.log('Error(2) was:');
+                            console.log(err.message);
+                            node.connect();
+                            reject(err);
+                        });
                     } else {
                         node.connect();
                         reject('No device');
