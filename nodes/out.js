@@ -1,7 +1,7 @@
 const miio = require('miio');
 
 function isSet(value) {
-    return typeof value !== 'undefined' && value != null;
+    return value !== undefined && value != null;
 }
 
 module.exports = function (RED) {
@@ -9,7 +9,7 @@ module.exports = function (RED) {
         constructor(config) {
             RED.nodes.createNode(this, config);
 
-            var node = this;
+            const node = this;
             node.config = config;
             node.payload = config.payload;
 
