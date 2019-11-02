@@ -1,95 +1,48 @@
-const miio = require('miio');
+const common = require('./common')
 
 module.exports = function (RED) {
-    class MiioAirpurifierInput {
-        constructor(n) {
-            RED.nodes.createNode(this, n);
-
-            var node = this;
-            node.config = n;
-
+    class MiioAirpurifierInput extends common.MiioAirpurifierCommon {
+        constructor(config) {
+            super(RED, config);
+            const node = this;
             node.setMaxListeners(255);
-            node.on('close', () => this.onClose());
 
-            if (node.config.ip && node.config.token) {
-                node.connect().then(result => {
-                    node.getStatus(true).then(result => {
+            node.connect().then(() => {
+                node.getStatus(true).then(result => {
 
-                    });
                 });
+            }).catch(err => node.error(err));
 
-                node.refreshStatusTimer = setInterval(function () {
-                    node.getStatus(true);
-                }, 10000);
+            node.refreshStatusTimer = setInterval(function () {
+                node.getStatus(true);
+            }, 10000);
+
+        }
+
+        async getStatus(force = false) {
+            if (!force) {
+                return;
             }
-        }
 
-        onClose() {
-            var that = this;
+            if (this.device !== null) {
+                try {
+                    const properties = await this.device.loadProperties(["mode", "filter1_life", "aqi", "child_lock", "power", "favorite_level", "temp_dec", "humidity"])
 
-            if (that.device) {
-                that.device.destroy();
-                that.device = null;
-            }
-        }
-
-        connect() {
-            var node = this;
-
-            return new Promise(function (resolve, reject) {
-                node.miio = miio.device({
-                    address: node.config.ip,
-                    token: node.config.token
-                }).then(device => {
-                    node.device = device;
-                    node.device.updateMaxPollFailures(0);
-
-                    node.device.on('thing:initialized', () => {
-                        node.log('Miio Airpurifier: Initialized');
-                    });
-
-                    node.device.on('thing:destroyed', () => {
-                        node.log('Miio Airpurifier: Destroyed');
-                    });
-
-                    resolve(device);
-                }).catch(err => {
-                    node.warn('Miio Airpurifier Error: ' + err.message);
-                    reject(err);
-                });
-            });
-        }
-
-        getStatus(force = false) {
-            var node = this;
-
-            return new Promise(function (resolve, reject) {
-                if (force) {
-                    if (node.device !== null) {
-                        node.device.loadProperties(["mode", "filter1_life", "aqi", "child_lock", "power", "favorite_level", "temp_dec", "humidity"])
-                            .then(device => {
-                                node.send([{
-                                        'payload_raw': device
-                                    },
-                                    {
-                                        'payload': node.formatHomeKit(device)
-                                    }
-                                ]);
-                            }).catch(err => {
-                                console.log('Encountered an error while controlling device');
-                                console.log('Error(2) was:');
-                                console.log(err.message);
-                                node.connect();
-                                reject(err);
-                            });
-                    } else {
-                        node.connect();
-                        reject('No device');
-                    }
-                } else {
-                    resolve();
+                    this.status({fill: "green", shape: "dot", text: "receiving"});
+                    this.send([
+                        {
+                            'payload_raw': properties
+                        },
+                        {
+                            'payload': this.formatHomeKit(properties)
+                        }
+                    ]);
+                } catch(err) {
+                    this.status({fill: "red", shape: "dot", text: "stopped receiving"});
+                    console.error('Encountered an error while controlling device', err);
+                    throw err
                 }
-            });
+            }
         }
 
         formatHomeKit(result) {
