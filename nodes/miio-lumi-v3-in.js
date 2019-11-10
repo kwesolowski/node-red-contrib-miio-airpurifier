@@ -3,6 +3,7 @@ const common = require('./common');
 const sleep = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds))
 }
+const util = require('util');
 
 module.exports = function (RED) {
     class MiioLumiV3Input extends common.MiioDeviceCommon {
@@ -16,7 +17,6 @@ module.exports = function (RED) {
             let node = this;
             await this.connect();
             this.device.on('thing:initialized', async () => {
-                node.log(JSON.stringify(node.device));
                 if(node.device.matches('cap:children')) {
                     node.log(`Device can have children`);
                     node.device.on('thing:available', child => console.log('Added child:', child));
@@ -43,6 +43,8 @@ module.exports = function (RED) {
                 } else {
                     node.log(`Hub not recognized as type:miio:gateway`);
                 }
+
+                node.log(util.inspect(node.device));
             });
         }
     }
