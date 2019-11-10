@@ -41,7 +41,7 @@ module.exports = function (RED) {
 
             this.device.on('thing:initialized', async () => {
                 await node.pollChildren();
-                node.pollTimer = setTimeout(() => node.pollChildren(), 5000);
+                node.pollTimer = setTimeout(() => node.pollChildren(), 30000);
             });
 
             this.device.on('thing:destroyed', () => {
