@@ -1,7 +1,7 @@
-const common = require('./common')
+const common = require('./common');
 
 module.exports = function (RED) {
-    class MiioHumidifierInput extends common.MiioDeviceCommon{
+    class MiioHumidifierInput extends common.MiioDeviceInput {
         constructor(config) {
             super(RED, config);
 
@@ -46,7 +46,7 @@ module.exports = function (RED) {
                 msg.RelativeHumidityHumidifierThreshold = result.limit_hum;
 
                 return msg;
-            }
+            };
 
             this.inputSetup(getStatusProperties, formatHomeKit).catch(err => this.error(err));
         }

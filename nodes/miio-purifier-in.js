@@ -1,7 +1,7 @@
-const common = require('./common')
+const common = require('./common');
 
 module.exports = function (RED) {
-    class MiioPurifierInput extends common.MiioDeviceCommon {
+    class MiioPurifierInput extends common.MiioDeviceInput {
         constructor(config) {
             super(RED, config);
 
@@ -66,7 +66,7 @@ module.exports = function (RED) {
                 }
 
                 return msg;
-            }
+            };
 
             this.inputSetup(getStatusProperties, formatHomeKit).catch(err => this.error(err));
 

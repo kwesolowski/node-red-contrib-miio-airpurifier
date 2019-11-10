@@ -1,11 +1,11 @@
 const common = require('./common');
 
 function isSet(value) {
-    return value !== undefined && value != null;
+    return value !== undefined && value !== null;
 }
 
 module.exports = function (RED) {
-    class MiioHumidifierOutput extends common.MiioDeviceCommon {
+    class MiioHumidifierOutput extends common.MiioDeviceOutput {
         constructor(config) {
             super(RED, config);
             this.SetUp().catch(err => this.error(err))
@@ -17,7 +17,7 @@ module.exports = function (RED) {
         }
 
         async handlePayload(payload) {
-            let calls = []
+            let calls = [];
             if (isSet(payload.RelativeHumidityHumidifierThreshold)) {
                 let value = payload.RelativeHumidityHumidifierThreshold;
                 if (value > 0 && value <= 40) {
