@@ -1,38 +1,18 @@
-const common = require('./common')
+const common = require('./common');
 
 function isSet(value) {
     return value !== undefined && value != null;
 }
 
 module.exports = function (RED) {
-    class MiioAirpurifierOutput extends common.MiioAirpurifierCommon {
+    class MiioPurifierOutput extends common.MiioDeviceOutput {
         constructor(config) {
-            super(RED, config)
-            const node = this;
-            node.connect().catch(err => node.error(err))
-
-            node.on('input', (msg, send, done) => {
-                if (node.device) {
-                    try {
-                        if (isSet(msg.payload)) {
-                            node.handlePayload(msg.payload).catch(err => node.error(err));
-                        }
-                        if (isSet(msg.payload_raw)) {
-                            node.handlePayloadRaw(msg.payload_raw).catch(err => node.error(err));
-                        }
-                        this.status({fill: "green", shape: "dot", text: "sent"});
-                    } catch (err) {
-                        this.error("Failed to send", err)
-                        this.status({fill: "red", shape: "dot", text: "not sent"});
-                    }
-                } else {
-                    this.status({fill: "red", shape: "dot", text: "not connected"});
-                    return;
-                }
-                if (done) {
-                    done();
-                }
-            });
+            super(RED, config);
+            this.SetUp().catch(err => this.error(err))
+        }
+        async SetUp() {
+            await this.connect();
+            await this.outputSetup(this.handlePayload, this.handlePayloadRaw)
         }
 
         async handlePayloadRaw(payload_raw) {
@@ -100,18 +80,12 @@ module.exports = function (RED) {
 
                 if (node.TargetAirPurifierState == "auto") {
                     if (value != 0) {
-                        const result = await node.device.call("set_level_favorite", [parseInt(value / 10)]);
-                        if (result[0] !== "ok") {
-                            this.error(new Error(result[0]));
-                        }
+                        await this.callWithErrors("set_level_favorite", [Math.round(value / 10)]);
                     }
                 } else {
                     const load_result = await this.device.loadProperties(["favorite_level"])
                     if (!(node.RotationSpeed <= load_result.favorite_level * 10 && node.RotationSpeed.value > (load_result.favorite_level - 1) * 10)) {
-                        const set_result = await node.device.call("set_level_favorite", [parseInt(value / 10)])
-                        if (set_result[0] !== "ok") {
-                            this.error(new Error(result[0]));
-                        }
+                        await this.callWithErrors("set_level_favorite", [Math.round(value / 10)]);
                     }
                 }
             }
@@ -120,5 +94,5 @@ module.exports = function (RED) {
         }
     }
 
-    RED.nodes.registerType('miio-airpurifier-output', MiioAirpurifierOutput);
+    RED.nodes.registerType('miio-purifier-output', MiioPurifierOutput);
 }

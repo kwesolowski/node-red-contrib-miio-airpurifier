@@ -1,25 +1,28 @@
 {
   "author": {
-    "name": "Andrey Oshev",
-    "email": "a@oshev.ru"
+    "name": "Krzysztof Wesolwoski, Andrey Oshev",
+    "email": "kwesoly@kwesoly.net, a@oshev.ru"
   },
   "dependencies": {
     "miio": "latest"
   },
-  "description": "Miio node for Airpurifier (Xiaomi)",
+  "description": "Miio Homekit and Raw nodes for Air Purifiers and Humidifiers",
   "keywords": [
     "miio",
     "airpurifier",
+    "airhumidifier",
     "xiaomi",
     "node-red"
   ],
   "license": "GPL-3.0",
-  "name": "node-red-contrib-miio-airpurifier",
+  "name": "node-red-contrib-miio-homekit-raw",
   "node-red": {
     "nodes": {
-      "in": "nodes/in.js",
-      "out": "nodes/out.js"
+      "miio-humidifier-in": "nodes/miio-humidifier-in.js",
+      "miio-humidifier-out": "nodes/miio-humidifier-out.js",
+      "miio-purifier-in": "nodes/miio-purifier-in.js",
+      "miio-purifier-out": "nodes/miio-purifier-out.js"
     }
   },
-  "version": "0.3.1"
+  "version": "1.0.0"
 }

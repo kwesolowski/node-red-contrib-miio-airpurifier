@@ -1,8 +1,9 @@
 <script type="text/javascript">
-    RED.nodes.registerType('miio-airpurifier-output', {
-        category: 'miio-airpurifier',
+    RED.nodes.registerType('miio-humidifier-output', {
+        category: 'miio-humidifier',
         color: '#00bc9c',
         icon: "mi.png",
+        align: 'right',
         defaults: {
             name: {
                 value: ""
@@ -19,14 +20,14 @@
         inputs: 1,
         outputs: 0,
         outputLabels: ["state"],
-        paletteLabel: 'out',
+        paletteLabel: 'Humidifier Out',
         label: function () {
-            return this.name || "Airpurifier Out";
+            return this.name || "Humidifier Out";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="miio-airpurifier-output">
+<script type="text/x-red" data-template-name="miio-humidifier-output">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-bookmark"></i> Name</label>
         <input type="text" id="node-input-name">

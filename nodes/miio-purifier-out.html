@@ -1,8 +1,9 @@
 <script type="text/javascript">
-    RED.nodes.registerType('miio-airpurifier-input', {
-        category: 'miio-airpurifier',
+    RED.nodes.registerType('miio-purifier-output', {
+        category: 'miio-purifier',
         color: '#00bc9c',
         icon: "mi.png",
+        align: 'right',
         defaults: {
             name: {
                 value: ""
@@ -16,17 +17,17 @@
                 required: true
             }
         },
-        inputs: 0,
-        outputs: 2,
-        outputLabels: ["raw", "homekit"],
-        paletteLabel: 'Air Purifier In',
+        inputs: 1,
+        outputs: 0,
+        outputLabels: ["state"],
+        paletteLabel: 'Purifier Out',
         label: function () {
-            return this.name || "Air Purifier In";
+            return this.name || "Purifier Out";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="miio-airpurifier-input">
+<script type="text/x-red" data-template-name="miio-airpurifier-output">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-bookmark"></i> Name</label>
         <input type="text" id="node-input-name">
