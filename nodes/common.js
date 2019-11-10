@@ -28,14 +28,18 @@ module.exports.MiioDeviceCommon = class MiioDeviceCommon {
 
             this.device.updateMaxPollFailures(0);
 
-            this.device.on('thing:initialized', () => {
-                this.log(`${this.name}: Initialized`);
-                this.status({fill: "green", shape: "dot", text: "initialized..."});
+
+            const node = this;
+            this.device.on('thing:initialized', async () => {
+                node.log(`Initialized`);
+                node.status({fill: "green", shape: "dot", text: "initialized..."});
+
+                console.info(`Available properties ${JSON.stringify(node.device)}`);
             });
 
             this.device.on('thing:destroyed', () => {
-                this.log(`${this.name}: Destroyed`);
-                this.status({fill: "yellow", shape: "dot", text: "destroyed..."});
+                node.log(`Destroyed`);
+                node.status({fill: "yellow", shape: "dot", text: "destroyed..."});
             });
 
         } else {
@@ -56,23 +60,12 @@ module.exports.MiioDeviceInput = class MiioDeviceInput extends module.exports.Mi
         this.setMaxListeners(255);
 
         await this.connect();
-        await this.readAvailableProperties();
         await this.inputGetStatus(true);
 
         let node = this;
         this.refreshStatusTimer = setInterval(function () {
             node.inputGetStatus(true);
         }, 10000);
-    }
-
-    async readAvailableProperties() {
-        if (this.device !== null) {
-            const properties = await this.device.miioProperties();
-            this.log(`Available properties ${JSON.stringify(properties)}`);
-            console.info(`Available properties ${JSON.stringify(properties)}`);
-        } else {
-            console.warn("Device not available when reading props");
-        }
     }
 
     async inputGetStatus(force = false) {
@@ -92,7 +85,7 @@ module.exports.MiioDeviceInput = class MiioDeviceInput extends module.exports.Mi
             } catch (err) {
                 this.status({fill: "red", shape: "dot", text: "stopped receiving"});
                 console.error('Encountered an error while controlling device', err);
-                throw err
+                throw err;
             }
         }
     }
