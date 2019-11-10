@@ -73,9 +73,7 @@ module.exports.MiioDeviceInput = class MiioDeviceInput extends module.exports.Mi
 
         if (this.device !== null) {
             try {
-                const properties = await this.device.loadProperties(this.getStatusProperties);
-
-                console.log(this.device._reversePropertyDefinitions);
+                const properties = await this.device.loadProperties();
 
                 this.status({fill: "green", shape: "dot", text: "receiving"});
                 this.send({
