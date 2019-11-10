@@ -5,7 +5,7 @@ module.exports = function (RED) {
         constructor(config) {
             super(RED, config);
 
-            const getStatusProperties = ["power", "humidity", "child_lock", "dry", "depth", "limit_hum", "mode"];
+            const getStatusProperties = ["power", "humidity", "child_lock", "dry", "temp_dec", "depth", "limit_hum", "mode"];
 
             const formatHomeKit = (result) => {
                 let msg = {};
