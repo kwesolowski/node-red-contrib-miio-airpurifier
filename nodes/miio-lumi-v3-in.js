@@ -19,9 +19,8 @@ module.exports = function (RED) {
                     try {
                         const vals = await child.values();
                         const valsc = JSON.parse(JSON.stringify(vals));
-                        node.log(util.inspect(valsc));
                         this.send({
-                            'payload': vals,
+                            'payload': valsc,
                             'topic': child.id,
                         });
                     } catch (err) {
