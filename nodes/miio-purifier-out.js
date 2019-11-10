@@ -1,7 +1,7 @@
 const common = require('./common');
 
 function isSet(value) {
-    return value !== undefined && value != null;
+    return value !== undefined && value !== null;
 }
 
 module.exports = function (RED) {
@@ -22,17 +22,17 @@ module.exports = function (RED) {
                 "mode": "set_mode",
                 "favorite_level": "set_level_favorite",
             };
-            const known_properties = ["power", "child_lock", "mode", "favorite_level"]
-            const change_properties = Object.keys(payload_raw).filter(k => known_properties.includes(k))
+            const known_properties = ["power", "child_lock", "mode", "favorite_level"];
+            const change_properties = Object.keys(payload_raw).filter(k => known_properties.includes(k));
 
             const current_values = await this.device.loadProperties(change_properties);
             for (let i = 0; i < change_properties.length; i++) {
-                const prop = change_properties[i]
+                const prop = change_properties[i];
                 const current_value = current_values[prop];
                 const target_value = payload_raw[prop];
                 const set_cmd = known_properties_setters[prop];
 
-                if (current_value != target_value) {
+                if (current_value !== target_value) {
                     try {
                         const result = await this.device.call(set_cmd, [target_value]);
                         if (result[0] === "ok") {
@@ -79,13 +79,13 @@ module.exports = function (RED) {
                 const value = payload.RotationSpeed;
 
                 if (node.TargetAirPurifierState == "auto") {
-                    if (value != 0) {
-                        await this.callWithErrors("set_level_favorite", [Math.round(value / 10)]);
+                    if (value !== 0) {
+                        await this.callWithError("set_level_favorite", [Math.round(value / 10)]);
                     }
                 } else {
-                    const load_result = await this.device.loadProperties(["favorite_level"])
+                    const load_result = await this.device.loadProperties(["favorite_level"]);
                     if (!(node.RotationSpeed <= load_result.favorite_level * 10 && node.RotationSpeed.value > (load_result.favorite_level - 1) * 10)) {
-                        await this.callWithErrors("set_level_favorite", [Math.round(value / 10)]);
+                        await this.callWithError("set_level_favorite", [Math.round(value / 10)]);
                     }
                 }
             }
@@ -95,4 +95,4 @@ module.exports = function (RED) {
     }
 
     RED.nodes.registerType('miio-purifier-output', MiioPurifierOutput);
-}
+};

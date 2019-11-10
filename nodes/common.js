@@ -1,5 +1,9 @@
 const miio = require('miio');
 
+function isSet(value) {
+    return value !== undefined && value !== null;
+}
+
 module.exports.MiioDeviceCommon = class MiioDeviceCommon {
     constructor(RED, config) {
         RED.nodes.createNode(this, config);
@@ -20,7 +24,7 @@ module.exports.MiioDeviceCommon = class MiioDeviceCommon {
             this.device = await miio.device({
                 address: this.config.ip,
                 token: this.config.token
-            })
+            });
 
             this.device.updateMaxPollFailures(0);
 
@@ -38,7 +42,7 @@ module.exports.MiioDeviceCommon = class MiioDeviceCommon {
             this.status({fill: "red", shape: "ring", text: "Missing IP or Token"});
         }
     };
-}
+};
 
 module.exports.MiioDeviceInput = class MiioDeviceInput extends MiioDeviceCommon {
     constructor(RED, config) {
@@ -81,9 +85,9 @@ module.exports.MiioDeviceInput = class MiioDeviceInput extends MiioDeviceCommon 
             this.getStatus(true);
         }, 10000);
     }
-}
+};
 
-module.exports.MiioDeviceOutput = class MiioDeviceOutput extends MiioDeviceCommon {
+module.exports.MiioDeviceOutput = class MiioDeviceOutput extends module.exports.MiioDeviceCommon {
     constructor(RED, config) {
         super(RED, config);
     }
@@ -110,8 +114,8 @@ module.exports.MiioDeviceOutput = class MiioDeviceOutput extends MiioDeviceCommo
                 }
                 this.status({fill: "green", shape: "dot", text: "sent"});
             } catch (err) {
-                this.error("Failed to send", err)
-                this.status({fill: "red", shape: "dot", text: "not sent"});
+                this.error("Failed to send", err);
+                this.status({fill: "red", shape: "dot", text: `not sent: ${err}`});
             }
         } else {
             this.status({fill: "red", shape: "dot", text: "not connected"});
@@ -134,4 +138,4 @@ module.exports.MiioDeviceOutput = class MiioDeviceOutput extends MiioDeviceCommo
             this.error(err)
         }
     };
-}
+};
