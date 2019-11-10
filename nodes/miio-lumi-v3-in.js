@@ -15,11 +15,17 @@ module.exports = function (RED) {
         async pollChildren() {
             let node = this;
             for (const child of node.device.children()) {
-                node.log("Handling child " + util.inspect(child.id))
                 if(child.matches('type:sensor')) {
-                    node.log(util.inspect(child.values()));
-                } else {
-                    node.log("child is not a sensor");
+                    try {
+                        const vals = await child.values();
+                        node.log(util.inspect(vals));
+                        this.send({
+                            'payload': vals,
+                            'topic': child.id,
+                        });
+                    } catch (err) {
+                        node.error("Failed to send values")
+                    }
                 }
             }
         }
