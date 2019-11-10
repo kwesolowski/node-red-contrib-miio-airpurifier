@@ -35,7 +35,5 @@ module.exports = function (RED) {
         }
     }
 
-
-
     RED.nodes.registerType('miio-lumi-v3-input', MiioLumiV3Input, {});
 };
