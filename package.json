@@ -4,7 +4,7 @@
     "email": "kwesoly@kwesoly.net, a@oshev.ru"
   },
   "dependencies": {
-    "miio": "latest"
+    "miio": "^0.16.0"
   },
   "description": "Miio Homekit and Raw nodes for Air Purifiers and Humidifiers",
   "keywords": [
