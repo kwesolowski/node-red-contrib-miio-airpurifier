@@ -21,7 +21,8 @@
       "miio-humidifier-in": "nodes/miio-humidifier-in.js",
       "miio-humidifier-out": "nodes/miio-humidifier-out.js",
       "miio-purifier-in": "nodes/miio-purifier-in.js",
-      "miio-purifier-out": "nodes/miio-purifier-out.js"
+      "miio-purifier-out": "nodes/miio-purifier-out.js",
+      "miio-lumi-v3-in": "nodes/miio-lumi-v3-in.js",
     }
   },
   "version": "1.0.0"
