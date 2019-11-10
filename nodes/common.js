@@ -76,8 +76,6 @@ module.exports.MiioDeviceInput = class MiioDeviceInput extends module.exports.Mi
             try {
                 const properties = await this.device.loadProperties(this.getStatusProperties);
 
-                this.status({fill: "green", shape: "dot", text: "receiving"});
-
                 let payload = null;
                 try {
                     payload = this.formatHomeKit(properties);
@@ -89,6 +87,8 @@ module.exports.MiioDeviceInput = class MiioDeviceInput extends module.exports.Mi
                     'payload_raw': properties,
                     'payload': payload
                 });
+
+                this.status({fill: "green", shape: "dot", text: "Sending ok"});
             } catch (err) {
                 this.status({fill: "red", shape: "dot", text: "stopped receiving"});
                 console.error('Encountered an error while controlling device', err);

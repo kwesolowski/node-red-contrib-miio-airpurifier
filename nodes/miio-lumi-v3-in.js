@@ -14,19 +14,25 @@ module.exports = function (RED) {
         }
         async pollChildren() {
             let node = this;
+            let allSuccess = true;
             for (const child of node.device.children()) {
                 if(child.matches('type:sensor')) {
                     try {
                         const vals = await child.values();
                         const valsc = JSON.parse(JSON.stringify(vals));
-                        this.send({
+                        await this.send({
                             'payload': valsc,
                             'topic': child.id,
                         });
                     } catch (err) {
-                        node.error("Failed to send values")
+                        allSuccess = false;
+                        node.error(`Failed to send values due to ${err}`)
+                        this.status({fill: "red", shape: "dot", text: `Failed receive and due to ${err}`});
                     }
                 }
+            }
+            if(allSuccess) {
+                this.status({fill: "green", shape: "dot", text: "Sending ok"});
             }
         }
         async setupGateway() {
