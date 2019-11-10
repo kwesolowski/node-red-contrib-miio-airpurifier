@@ -49,6 +49,13 @@ module.exports.MiioDeviceInput = class MiioDeviceInput extends module.exports.Mi
         super(RED, config);
     }
 
+    async readAvailableProperties() {
+        if (this.device !== null) {
+            const properties = await this.device.loadProperties(this.getStatusProperties);
+            console.info(`Available properties ${properties}`);
+        }
+    }
+
     async inputGetStatus(force = false) {
         if (!force) {
             return;
@@ -79,6 +86,7 @@ module.exports.MiioDeviceInput = class MiioDeviceInput extends module.exports.Mi
         this.setMaxListeners(255);
 
         await this.connect();
+        await this.readAvailableProperties();
         await this.inputGetStatus(true);
 
         this.refreshStatusTimer = setInterval(function () {
