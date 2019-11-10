@@ -44,7 +44,7 @@ module.exports.MiioDeviceCommon = class MiioDeviceCommon {
     };
 };
 
-module.exports.MiioDeviceInput = class MiioDeviceInput extends MiioDeviceCommon {
+module.exports.MiioDeviceInput = class MiioDeviceInput extends module.exports.MiioDeviceCommon {
     constructor(RED, config) {
         super(RED, config);
     }
