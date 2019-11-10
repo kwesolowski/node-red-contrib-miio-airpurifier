@@ -16,6 +16,12 @@ module.exports = function (RED) {
             let node = this;
             await this.connect();
             this.device.on('thing:initialized', async () => {
+                if(node.device.matches('cap:children')) {
+                    node.log(`Device can have children`);
+                    thing.on('thing:available', child => console.log('Added child:', child));
+                    thing.on('thing:unavailable', child => console.log('Removed child:', child));
+                }
+
                 if(node.device.matches('type:miio:gateway')) {
                     node.log(`Getting children1`);
                     let childs = node.device.children();
