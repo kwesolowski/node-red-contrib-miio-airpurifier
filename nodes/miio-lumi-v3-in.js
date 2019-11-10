@@ -17,6 +17,8 @@ module.exports = function (RED) {
             let node = this;
             this.device.on('thing:initialized', async () => {
                 node.log(`Getting children`);
+                let childs = node.device.children();
+                node.log(`Got childs ${JSON.stringify(childs)}`);
             });
         }
     }
