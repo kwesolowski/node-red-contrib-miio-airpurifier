@@ -14,10 +14,13 @@ module.exports = function (RED) {
         }
         async pollChildren() {
             let node = this;
-            let childs = node.device.children();
-            for (const child of childs) {
+            for (const child of node.device.children()) {
                 node.log("Handling child " + util.inspect(child.id))
-                node.log(util.inspect(child.values()));
+                if(child.matches('type:sensor')) {
+                    node.log(util.inspect(child.values()));
+                } else {
+                    node.log("child is not a sensor");
+                }
             }
         }
         async setupGateway() {
