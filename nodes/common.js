@@ -33,8 +33,6 @@ module.exports.MiioDeviceCommon = class MiioDeviceCommon {
             this.device.on('thing:initialized', async () => {
                 node.log(`Initialized`);
                 node.status({fill: "green", shape: "dot", text: "initialized..."});
-
-                console.info(`Available properties ${JSON.stringify(node.device)}`);
             });
 
             this.device.on('thing:destroyed', () => {
@@ -76,6 +74,8 @@ module.exports.MiioDeviceInput = class MiioDeviceInput extends module.exports.Mi
         if (this.device !== null) {
             try {
                 const properties = await this.device.loadProperties(this.getStatusProperties);
+
+                console.log(this.device._reversePropertyDefinitions);
 
                 this.status({fill: "green", shape: "dot", text: "receiving"});
                 this.send({
