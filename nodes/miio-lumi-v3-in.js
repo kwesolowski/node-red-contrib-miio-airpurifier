@@ -17,7 +17,7 @@ module.exports = function (RED) {
             let childs = node.device.children();
             for (const child of childs) {
                 node.log("Handling child " + util.inspect(child.id))
-                node.log(util.inspect(child.metadata));
+                node.log(util.inspect(child.values()));
             }
         }
         async setupGateway() {
