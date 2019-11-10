@@ -44,7 +44,7 @@ module.exports = function (RED) {
                     node.log(`Hub not recognized as type:miio:gateway`);
                 }
 
-                node.log(util.inspect(node.device));
+                node.log(util.inspect(node.device, showHidden=true, depth=3, colorize=true));
             });
         }
     }
