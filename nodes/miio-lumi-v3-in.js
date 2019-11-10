@@ -14,6 +14,7 @@ module.exports = function (RED) {
 
         async setupGateway() {
             let node = this;
+            await this.connect();
             this.device.on('thing:initialized', async () => {
                 if(node.device.matches('type:miio:gateway')) {
                     node.log(`Getting children1`);
@@ -30,8 +31,6 @@ module.exports = function (RED) {
                 }
                 node.log(`Hub not recognized as type:miio:gateway`);
             });
-
-            await this.connect();
         }
     }
 
