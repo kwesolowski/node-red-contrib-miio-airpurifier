@@ -18,8 +18,8 @@ module.exports = function (RED) {
             this.device.on('thing:initialized', async () => {
                 if(node.device.matches('cap:children')) {
                     node.log(`Device can have children`);
-                    thing.on('thing:available', child => console.log('Added child:', child));
-                    thing.on('thing:unavailable', child => console.log('Removed child:', child));
+                    node.device.on('thing:available', child => console.log('Added child:', child));
+                    node.device.on('thing:unavailable', child => console.log('Removed child:', child));
                 }
 
                 if(node.device.matches('type:miio:gateway')) {
