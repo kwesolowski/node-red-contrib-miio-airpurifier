@@ -16,6 +16,7 @@ module.exports = function (RED) {
             let node = this;
             await this.connect();
             this.device.on('thing:initialized', async () => {
+                node.log(JSON.stringify(node.device));
                 if(node.device.matches('cap:children')) {
                     node.log(`Device can have children`);
                     node.device.on('thing:available', child => console.log('Added child:', child));

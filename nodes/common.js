@@ -9,10 +9,11 @@ module.exports.MiioDeviceCommon = class MiioDeviceCommon {
         RED.nodes.createNode(this, config);
         this.config = config;
 
+        const node = this;
         this.on('close', (removed, done) => {
             if (removed && this.device) {
-                this.device.destroy();
-                this.device = null;
+                node.device.destroy();
+                node.device = null;
             }
             done();
         })
