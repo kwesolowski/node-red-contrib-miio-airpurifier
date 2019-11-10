@@ -68,7 +68,10 @@ module.exports.MiioDeviceInput = class MiioDeviceInput extends module.exports.Mi
     async readAvailableProperties() {
         if (this.device !== null) {
             const properties = await this.device.miioProperties();
+            this.info(`Available properties ${JSON.stringify(properties)}`);
             console.info(`Available properties ${JSON.stringify(properties)}`);
+        } else {
+            console.warn("Device not available when reading props");
         }
     }
 

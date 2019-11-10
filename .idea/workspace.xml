@@ -4,7 +4,6 @@
     <list default="true" id="eeb96032-5cf3-46d0-a374-c036885726fa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nodes/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/miio-purifier-out.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/miio-purifier-out.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,6 +19,12 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -43,7 +48,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1573389724298</updated>
-      <workItem from="1573389725452" duration="1752000" />
+      <workItem from="1573389725452" duration="1975000" />
     </task>
     <task id="LOCAL-00001" summary="Add IDEA/Webstorm settings">
       <created>1573389799077</created>
@@ -94,7 +99,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573391341025</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Fix more of runtime bugs and improve inspections">
+      <created>1573391507119</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1573391507119</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,10 +124,14 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <MESSAGE value="Add IDEA/Webstorm settings" />
     <MESSAGE value="Fix more of runtime bugs" />
     <MESSAGE value="Fix more of runtime bugs and improve inspetions" />
     <MESSAGE value="Fix more of runtime bugs and improve inspections" />
     <option name="LAST_COMMIT_MESSAGE" value="Fix more of runtime bugs and improve inspections" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
