@@ -4,7 +4,7 @@
     <list default="true" id="eeb96032-5cf3-46d0-a374-c036885726fa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nodes/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/miio-humidifier-in.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/miio-humidifier-in.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nodes/miio-purifier-out.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/miio-purifier-out.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,6 +14,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="ProjectId" id="1SZlWWWYQqIRGJ93utmzGxRfPJ8" />
   <component name="PropertiesComponent">
@@ -50,7 +53,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1573389724298</updated>
-      <workItem from="1573389725452" duration="6476000" />
+      <workItem from="1573389725452" duration="7515000" />
     </task>
     <task id="LOCAL-00001" summary="Add IDEA/Webstorm settings">
       <created>1573389799077</created>
