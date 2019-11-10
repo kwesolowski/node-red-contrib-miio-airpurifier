@@ -16,7 +16,7 @@ module.exports = function (RED) {
             let node = this;
             let childs = node.device.children();
             for (const child of childs) {
-                node.log("Handling child " + util.inspect(child))
+                node.log("Handling child " + util.inspect(child.id))
             }
         }
         async setupGateway() {
@@ -25,7 +25,7 @@ module.exports = function (RED) {
 
             this.device.on('thing:initialized', async () => {
                 await node.pollChildren();
-                node.pollTimer = setTimeout(this.pollChildren, 10000);
+                node.pollTimer = setTimeout(node.pollChildren, 10000);
             });
 
             this.device.on('thing:destroyed', () => {
