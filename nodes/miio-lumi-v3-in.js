@@ -36,7 +36,9 @@ module.exports = function (RED) {
                     childs = node.device.children();
                     node.log(`Got childs ${JSON.stringify(childs)}`);
 
-                    await sleep(5000);
+                    const getdevprop = await node.device.call('get_device_prop', [ 'lumi.0', 'device_list' ])
+
+                    node.log(util.inspect(getdevprop, true, 3, true));
                     node.log(`Getting children3`);
                     childs = node.device.children();
                     node.log(`Got childs ${JSON.stringify(childs)}`);
