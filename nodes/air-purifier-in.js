@@ -1,7 +1,7 @@
 const common = require('./common')
 
 module.exports = function (RED) {
-    class MiioAirpurifierInput extends common.MiioAirpurifierCommon {
+    class MiioAirPurifierInput extends common.MiioDeviceCommon {
         constructor(config) {
             super(RED, config);
             const node = this;
@@ -106,5 +106,5 @@ module.exports = function (RED) {
         }
     }
 
-    RED.nodes.registerType('miio-airpurifier-input', MiioAirpurifierInput, {});
+    RED.nodes.registerType('miio-airpurifier-input', MiioAirPurifierInput, {});
 };

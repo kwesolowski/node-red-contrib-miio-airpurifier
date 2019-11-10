@@ -1,6 +1,6 @@
 const miio = require('miio');
 
-module.exports.MiioAirpurifierCommon = class MiioAirpurifierCommon {
+module.exports.MiioDeviceCommon = class MiioDeviceCommon {
     constructor(RED, config) {
         RED.nodes.createNode(this, config);
         this.config = config;
