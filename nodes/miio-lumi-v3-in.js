@@ -21,7 +21,7 @@ module.exports = function (RED) {
                 node.pollTimer = setTimeout(() =>{
                     let childs = node.device.children();
                     for (const child of childs) {
-                        log.info("Handling child " + util.inspect(child))
+                        node.info("Handling child " + util.inspect(child))
                     }
                 }, 10000);
             });
