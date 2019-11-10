@@ -83,7 +83,7 @@ module.exports = function (RED) {
                         await this.callWithError("set_level_favorite", [Math.round(value / 10)]);
                     }
                 } else {
-                    const load_result = await this.device.loadProperties(["favorite_level"]);
+                    const load_result = await this.device.getProperties(["favorite_level"]);
                     if (!(node.RotationSpeed <= load_result.favorite_level * 10 && node.RotationSpeed.value > (load_result.favorite_level - 1) * 10)) {
                         await this.callWithError("set_level_favorite", [Math.round(value / 10)]);
                     }

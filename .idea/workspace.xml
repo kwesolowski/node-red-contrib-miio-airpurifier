@@ -4,6 +4,7 @@
     <list default="true" id="eeb96032-5cf3-46d0-a374-c036885726fa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nodes/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nodes/miio-purifier-out.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/miio-purifier-out.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,7 +43,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1573389724298</updated>
-      <workItem from="1573389725452" duration="1603000" />
+      <workItem from="1573389725452" duration="1752000" />
     </task>
     <task id="LOCAL-00001" summary="Add IDEA/Webstorm settings">
       <created>1573389799077</created>
@@ -86,7 +87,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573391279022</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Fix more of runtime bugs and improve inspections">
+      <created>1573391341025</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1573391341025</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
