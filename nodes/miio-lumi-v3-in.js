@@ -17,6 +17,10 @@ module.exports = function (RED) {
             let childs = node.device.children();
             for (const child of childs) {
                 node.log("Handling child " + util.inspect(child.id))
+                node.log(child.metadata);
+                node.log(child.metadata.tags);
+                node.log(child.metadata.types);
+                node.log(child.metadata.capabilities);
             }
         }
         async setupGateway() {
@@ -25,7 +29,7 @@ module.exports = function (RED) {
 
             this.device.on('thing:initialized', async () => {
                 await node.pollChildren();
-                node.pollTimer = setTimeout(node.pollChildren, 10000);
+                node.pollTimer = setTimeout(() => node.pollChildren(), 10000);
             });
 
             this.device.on('thing:destroyed', () => {
