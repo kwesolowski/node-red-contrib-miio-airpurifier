@@ -18,7 +18,8 @@ module.exports = function (RED) {
                 if(child.matches('type:sensor')) {
                     try {
                         const vals = await child.values();
-                        node.log(util.inspect(vals));
+                        const valsc = JSON.parse(JSON.stringify(vals));
+                        node.log(util.inspect(valsc));
                         this.send({
                             'payload': vals,
                             'topic': child.id,
