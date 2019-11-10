@@ -21,15 +21,21 @@ module.exports = function (RED) {
                     let childs = node.device.children();
                     node.log(`Got childs ${JSON.stringify(childs)}`);
 
-                    node.log(`InitCallback`);
-                    await node.device.initCallback();
-                    node.log(`InitCallback DONE`);
+                    node.log(`_updateDeviceList`);
+                    await node.device._updateDeviceList();
+                    node.log(`_updateDeviceList DONE`);
 
                     node.log(`Getting children2`);
                     childs = node.device.children();
                     node.log(`Got childs ${JSON.stringify(childs)}`);
+
+                    await sleep(5000);
+                    node.log(`Getting children3`);
+                    childs = node.device.children();
+                    node.log(`Got childs ${JSON.stringify(childs)}`);
+                } else {
+                    node.log(`Hub not recognized as type:miio:gateway`);
                 }
-                node.log(`Hub not recognized as type:miio:gateway`);
             });
         }
     }
