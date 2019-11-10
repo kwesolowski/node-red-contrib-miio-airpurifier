@@ -114,8 +114,9 @@ module.exports.MiioDeviceOutput = class MiioDeviceOutput extends module.exports.
             "child_lock": "set_child_lock",
             "mode": "set_mode",
             "favorite_level": "set_level_favorite",
+            "limit_hum": "set_limit_hum",
         };
-        const known_properties = ["power", "child_lock", "mode", "favorite_level"];
+        const known_properties = Object.keys(known_properties_setters);
         const change_properties = Object.keys(payload_raw).filter(k => known_properties.includes(k));
 
         const current_values = await this.device.loadProperties(change_properties);
