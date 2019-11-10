@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../miio/.idea/miio.iml" filepath="$PROJECT_DIR$/../miio/.idea/miio.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/node-red-contrib-miio-airpurifier.iml" filepath="$PROJECT_DIR$/.idea/node-red-contrib-miio-airpurifier.iml" />
     </modules>
   </component>
