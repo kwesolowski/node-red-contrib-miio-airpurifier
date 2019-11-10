@@ -16,38 +16,14 @@ module.exports = function (RED) {
         async setupGateway() {
             let node = this;
             await this.connect();
-            this.device.on('thing:available', child => console.log('Added child:', child));
-            this.device.on('thing:unavailable', child => console.log('Removed child:', child));
 
             this.device.on('thing:initialized', async () => {
-                if(node.device.matches('cap:children')) {
-                    node.log(`Device can have children`);
-                }
-
-                if(node.device.matches('type:miio:gateway')) {
-                    node.log(`Getting children1`);
+                node.pollTimer = setTimeout(() =>{
                     let childs = node.device.children();
-                    node.log(`Got childs ${util.inspect(childs)}`);
-
-                    node.log(`_updateDeviceList`);
-                    await node.device._updateDeviceList();
-                    node.log(`_updateDeviceList DONE`);
-
-                    node.log(`Getting children2`);
-                    childs = node.device.children();
-                    node.log(`Got childs ${util.inspect(childs)}`);
-
-                    const getdevprop = await node.device.call('get_device_prop', [ 'lumi.0', 'device_list' ])
-
-                    node.log(util.inspect(getdevprop, true, 3, true));
-                    node.log(`Getting children3`);
-                    childs = node.device.children();
-                    node.log(`Got childs ${util.inspect(childs)}`);
-                } else {
-                    node.log(`Hub not recognized as type:miio:gateway`);
-                }
-
-                node.log(util.inspect(node.device, true,3, true));
+                    for (const child of childs) {
+                        log.info("Handling child " + util.inspect(child))
+                    }
+                }, 10000);
             });
         }
     }
