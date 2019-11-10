@@ -80,7 +80,7 @@ module.exports.MiioDeviceInput = class MiioDeviceInput extends module.exports.Mi
                 let payload = null;
                 try {
                     payload = this.formatHomeKit(properties);
-                } catch (e) {
+                } catch (err) {
                     console.error('Encountered an error while converting properties to HomeKit', err);
                 }
 
