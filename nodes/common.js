@@ -112,6 +112,8 @@ module.exports.MiioDeviceOutput = class MiioDeviceOutput extends module.exports.
         const known_properties_setters = {
             "power": "set_power",
             "child_lock": "set_child_lock",
+            "dry": "set_dry",
+            "buzzer": "set_buzzer",
             "mode": "set_mode",
             "favorite_level": "set_level_favorite",
             "limit_hum": "set_limit_hum",
