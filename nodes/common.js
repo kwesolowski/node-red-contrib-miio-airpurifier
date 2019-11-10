@@ -49,6 +49,22 @@ module.exports.MiioDeviceInput = class MiioDeviceInput extends module.exports.Mi
         super(RED, config);
     }
 
+    async inputSetup(getStatusProperties, formatHomeKit) {
+        this.getStatusProperties = getStatusProperties;
+        this.formatHomeKit = formatHomeKit;
+
+        this.setMaxListeners(255);
+
+        await this.connect();
+        await this.readAvailableProperties();
+        await this.inputGetStatus(true);
+
+        let node = this;
+        this.refreshStatusTimer = setInterval(function () {
+            node.inputGetStatus(true);
+        }, 10000);
+    }
+
     async readAvailableProperties() {
         if (this.device !== null) {
             const properties = await this.device.loadProperties(this.getStatusProperties);
@@ -76,22 +92,6 @@ module.exports.MiioDeviceInput = class MiioDeviceInput extends module.exports.Mi
                 throw err
             }
         }
-    }
-
-
-    async inputSetup(getStatusProperties, formatHomeKit) {
-        this.getStatusProperties = getStatusProperties;
-        this.formatHomeKit = formatHomeKit;
-
-        this.setMaxListeners(255);
-
-        await this.connect();
-        await this.readAvailableProperties();
-        await this.inputGetStatus(true);
-
-        this.refreshStatusTimer = setInterval(function () {
-            this.getStatus(true);
-        }, 10000);
     }
 };
 
