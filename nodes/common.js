@@ -76,9 +76,17 @@ module.exports.MiioDeviceInput = class MiioDeviceInput extends module.exports.Mi
                 const properties = await this.device.poll();
 
                 this.status({fill: "green", shape: "dot", text: "receiving"});
+
+                let payload = null;
+                try {
+                    payload = this.formatHomeKit(properties);
+                } catch (e) {
+                    console.error('Encountered an error while converting properties to HomeKit', err);
+                }
+
                 this.send({
                     'payload_raw': properties,
-                    'payload': this.formatHomeKit(properties)
+                    'payload': payload
                 });
             } catch (err) {
                 this.status({fill: "red", shape: "dot", text: "stopped receiving"});
