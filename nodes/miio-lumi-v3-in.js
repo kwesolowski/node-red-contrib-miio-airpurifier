@@ -12,18 +12,25 @@ module.exports = function (RED) {
 
             this.setupGateway().catch(err => this.error(err));
         }
-
+        async pollChildren() {
+            let node = this;
+            let childs = node.device.children();
+            for (const child of childs) {
+                node.info("Handling child " + util.inspect(child))
+            }
+        }
         async setupGateway() {
             let node = this;
             await this.connect();
 
             this.device.on('thing:initialized', async () => {
-                node.pollTimer = setTimeout(() =>{
-                    let childs = node.device.children();
-                    for (const child of childs) {
-                        node.info("Handling child " + util.inspect(child))
-                    }
-                }, 10000);
+                await node.pollChildren();
+                node.pollTimer = setTimeout(this.pollChildren, 10000);
+            });
+
+            this.device.on('thing:destroyed', () => {
+                clearInterval(node.pollTimer);
+                node.pollTimer = null;
             });
         }
     }
