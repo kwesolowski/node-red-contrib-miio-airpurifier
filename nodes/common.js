@@ -80,7 +80,7 @@ module.exports.MiioDeviceInput = class MiioDeviceInput extends module.exports.Mi
                 try {
                     payload = this.formatHomeKit(properties);
                 } catch (err) {
-                    console.error('Encountered an error while converting properties to HomeKit', err);
+                    this.error('Encountered an error while converting properties to HomeKit', err);
                 }
 
                 this.send({
@@ -91,8 +91,7 @@ module.exports.MiioDeviceInput = class MiioDeviceInput extends module.exports.Mi
                 this.status({fill: "green", shape: "dot", text: "Sending ok"});
             } catch (err) {
                 this.status({fill: "red", shape: "dot", text: "stopped receiving"});
-                console.error('Encountered an error while controlling device', err);
-                throw err;
+                this.error('Encountered an error while reading properties', err);
             }
         }
     }
